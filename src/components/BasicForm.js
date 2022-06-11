@@ -3,8 +3,6 @@ import { Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
 const schema = yup.object().shape({
     name: yup.string().required(),
     email: yup.string().email().required(),
@@ -20,22 +18,18 @@ function BasicForm() {
                 email: '',
                 message: ''
             }}
-            onSubmit={async (values, actions) => {
-                await sleep(500);
-                let response = await fetch("http://localhost:5000/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json;charset=utf-8",
-                    },
-                    body: JSON.stringify(values),
-                });
-                // alert(JSON.stringify(values, null, 2));
-                alert(JSON.stringify("Email successfully sent to recipient!"));
-                actions.resetForm();
-            }}
         >
-            {({ handleSubmit, handleChange, touched, errors }) => (
-                <Form noValidate onSubmit={handleSubmit}>
+            {({ handleReset, handleChange, touched, errors }) => (
+                <Form
+                    name="Contact Form"
+                    method="POST"
+                    data-netlify="true"
+                >
+                    <Form.Control
+                        type="hidden"
+                        name="form-name"
+                        value='Contact Form'
+                    />
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label className="text-light">Name</Form.Label>
                         <Form.Control
@@ -72,7 +66,7 @@ function BasicForm() {
                             rows={3}
                         />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" onSubmit={handleReset}>
                         Submit
                     </Button>
                 </Form>
