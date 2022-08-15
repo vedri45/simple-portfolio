@@ -1,7 +1,7 @@
-import logo from '../logo.svg'
-import React from 'react'
-import 'bootstrap/dist/css/bootstrap.css'
-import { Navbar, Container, Nav } from 'react-bootstrap'
+import logo from '../logo.svg';
+import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import { Navbar, Container, Nav } from 'react-bootstrap';
 
 import { HashLink as Link } from 'react-router-hash-link';
 
@@ -24,6 +24,7 @@ export default function Appbar() {
                     <Nav className="me-auto ">
                         <Nav.Link as={Link} to="#home" smooth>Home</Nav.Link>
                         <Nav.Link as={Link} to="#projects" smooth>Projects</Nav.Link>
+                        <Nav.Link as={Link} to="#skills" smooth>Skills & Certificate</Nav.Link>
                         <Nav.Link as={Link} to="#contact" smooth>Contact</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

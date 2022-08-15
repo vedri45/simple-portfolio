@@ -13,6 +13,7 @@
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "formik": "^2.2.9",
+    "lightgallery": "^2.5.0",
     "nodemailer": "^6.7.5",
     "react": "^17.0.2",
     "react-bootstrap": "^2.4.0",

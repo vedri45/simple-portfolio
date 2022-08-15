@@ -7,36 +7,97 @@
     flex-grow: 0 !important;
 }
 
-#home,
-#projects,
-#contact {
-    padding-top: 100px;
-    padding-bottom: 100px;
+.container-section {
+    display: none;
+    transform: translateY(-100%) scale(0);
+    transition: all 0.4s ease-in-out;
 }
 
-#home,
-#contact {
-    height: 100vh;
+.active {
+    display: block;
+    animation: appear 1s ease-in-out;
+    transform: translateY(0) scaleY(1);
 }
 
-#footer {
+@keyframes appear {
+    0% {
+        transform: translateY(-100%) scaleY(0);
+    }
+
+    100% {
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+#vertical-nav {
+    height: 100%;
+    min-height: 500px;
+    position: absolute;
+    top: 0;
+    width: 60px;
+    z-index: 3;
+}
+
+#vertical-nav > .navbar-brand > img {
+    position: absolute;
+    left: 5px;
+}
+
+.card-body {
+    padding: 0.5rem !important;
+}
+
+.controls {
+    position: fixed;
+    z-index: 10;
+    top: 50%;
+    left: 5px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    width: 100%;
-    height: 20vh;
-    padding: 0 2rem;
-    background: #303841;
+    justify-content: center;
+    transform: translateY(-50%);
 }
 
-.footer-links {
+.controls .control {
+    padding: 1rem;
+    cursor: pointer;
+    /* background-color: #454e56; */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
-    width: 100%;
-    max-width: 980px;
-    flex-wrap: wrap;
+    align-items: center;
+    margin: 0.7rem 0;
+    /* box-shadow: 0 3px 15px rgba(0, 0, 0, .3); */
+}
+
+.controls .control i {
+    font-size: 1.2rem;
+    color: #b2becd;
+    pointer-events: none;
+}
+
+.controls .active-btn {
+    background-color: #418092;
+    transition: all 0.4s ease-in-out;
+}
+
+.controls .active-btn i {
+    color: #FFFFFF;
+}
+
+.socials {
+    position: absolute;
+    bottom: 20px;
+    text-align: center;
+}
+
+section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    height: 100vh;
 }
 
 .footer-details {
@@ -53,6 +114,34 @@
     padding: 1rem;
 }
 
-footer {
-    padding: 1rem;
+@media (min-width: 992px) {
+    .navbar {
+        display: none !important;
+    }
+    
+    footer {
+        display: none;
+    }
+}
+
+@media (max-width: 1200px) {
+    #vertical-nav {
+        display: none;
+    }
+
+    .container-section {
+        display: block;
+        transform: none;
+        transition: none;
+    }
+
+    .controls {
+        display: none;
+    }
+
+    section {
+        padding-top: 4.5rem;
+        padding-bottom: 4.5rem;
+        height: auto;
+    }
 }

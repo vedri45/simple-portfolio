@@ -1,5 +1,5 @@
-import React from 'react'
-import { Col, Row } from 'react-bootstrap'
+import React from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 
 const textStyle = {
     textDecoration: 'none',
@@ -7,8 +7,8 @@ const textStyle = {
 
 export default function FooterSection() {
     return (
-        <div className="bg-dark">
-            <footer className="container">
+        <footer className="bg-dark">
+            <Container>
                 <Row>
                     <Col sm={12} md={6}>
                         <p className="text-white footer-inline my-0">
@@ -16,10 +16,10 @@ export default function FooterSection() {
                         </p>
                     </Col>
                     <Col sm={12} md={6} className="text-end">
-                        <a className="text-white footer-details footer-inline" href="https://github.com/vedri45" target="_blank" style={textStyle}>
+                        <a className="text-white footer-details footer-inline" href="https://github.com/vedri45" target="_blank" rel="noreferrer" style={textStyle}>
                             <i className="fab fa-github"></i> Github
                         </a>
-                        <a className="text-white footer-details footer-inline" href="https://www.linkedin.com/in/vedri45/" target="_blank" style={textStyle}>
+                        <a className="text-white footer-details footer-inline" href="https://www.linkedin.com/in/vedri45/" target="_blank" rel="noreferrer" style={textStyle}>
                             <i className="fab fa-linkedin"></i> LinkedIn
                         </a>
                         <a className="text-white footer-details footer-inline" href="mailto:vedri45@gmail.com" style={textStyle}>
@@ -27,7 +27,7 @@ export default function FooterSection() {
                         </a>
                     </Col>
                 </Row>
-            </footer>
-        </div>
+            </Container>
+        </footer>
     )
 }
