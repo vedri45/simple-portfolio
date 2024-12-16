@@ -12,59 +12,15 @@ const onInit = () => {
 };
 
 export default class Skills extends Component {
-    state = {
-        skills: [],
-        images: [],
-        loading: true,
-        error: null,
-    };
-
-    componentDidMount() {
-        this.fetchSkills();
-        this.fetchImages();
-    }
-
-    fetchSkills = async () => {
-        try {
-            const response = await fetch('/.netlify/functions/getSkills');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const skills = await response.json();
-            this.setState({ skills });
-        } catch (error) {
-            this.setState({ error: error.message });
-        }
-    };
-
-    fetchImages = async () => {
-        try {
-            const response = await fetch('/.netlify/functions/getImages');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const images = await response.json();
-            this.setState({ images, loading: false });
-        } catch (error) {
-            this.setState({ error: error.message, loading: false });
-        }
-    };
-
     render() {
-        const { skills, images, loading, error } = this.state;
+        const { skills, images } = this.props;
 
-        if (loading ) {
-            return (
-                <div className="text-center">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
-            );
+        if (!skills || skills .length === 0) {
+            return <div>No skills available.</div>;
         }
 
-        if (error) {
-            return <div>Error: {error}</div>;
+        if (!images || images.length === 0) {
+            return <div>No images available.</div>;
         }
 
         return (

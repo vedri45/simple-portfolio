@@ -2,44 +2,11 @@ import React, { Component } from 'react';
 import { Button, Card, Col, Container, Row, Spinner } from 'react-bootstrap';
 
 class Projects extends Component {
-    state = {
-        web: [],
-        loading: true,
-        error: null,
-    };
-
-    componentDidMount() {
-        this.fetchProjects();
-    }
-
-    fetchProjects = async () => {
-        try {
-            const response = await fetch('/.netlify/functions/getProjects');
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            const projects = await response.json();
-            this.setState({ web: projects, loading: false });
-        } catch (error) {
-            this.setState({ error: error.message, loading: false });
-        }
-    };
-
     render() {
-        const { web, loading, error } = this.state;
+        const { projects } = this.props;
 
-        if (loading) {
-            return (
-                <div className="text-center">
-                    <Spinner animation="border" role="status">
-                        <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                </div>
-            );
-        }
-
-        if (error) {
-            return <div>Error: {error}</div>;
+        if (!projects || projects.length === 0) {
+            return <div>No projects available.</div>;
         }
 
         return (
@@ -47,8 +14,8 @@ class Projects extends Component {
                 <Container>
                     <Row>
                         <h2 className="py-2 text-light text-center">Projects</h2>
-                        {web.map((item, i) => (
-                            <Col sm={12} md={4} className="d-flex" key={i}>
+                        {projects.map((item, i) => (
+                            <Col sm={12} md={4} lg={3} className="d-flex" key={i}>
                                 <Card style={{ width: '18rem' }} className="mx-auto my-3">
                                     <Card.Img variant="top" src={item.image} />
                                     <Card.Body className="bg-dark text-light">
