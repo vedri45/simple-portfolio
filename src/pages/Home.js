@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Spinner } from 'react-bootstrap';
+import { useQuery } from 'react-query';
 import Appbar from '../components/Appbar';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
@@ -8,41 +9,30 @@ import FooterSection from '../components/FooterSection';
 import Hero from '../components/Hero';
 import Projects from '../components/Projects';
 
+const fetchSkills = async () => {
+  const response = await fetch('/.netlify/functions/getSkills');
+  if (!response.ok) throw new Error('Failed to fetch skills');
+  return response.json();
+};
+
+const fetchProjects = async () => {
+  const response = await fetch('/.netlify/functions/getProjects');
+  if (!response.ok) throw new Error('Failed to fetch projects');
+  return response.json();
+};
+
+const fetchImages = async () => {
+  const response = await fetch('/.netlify/functions/getImages');
+  if (!response.ok) throw new Error('Failed to fetch images');
+  return response.json();
+};
+
 export default function Home() {
-  const [skills, setSkills] = useState([]);
-  const [projects, setProjects] = useState([]);
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { data: skills, isLoading: loadingSkills, error: errorSkills } = useQuery(['skills'], fetchSkills);
+  const { data: projects, isLoading: loadingProjects, error: errorProjects } = useQuery(['projects'], fetchProjects);
+  const { data: images, isLoading: loadingImages, error: errorImages } = useQuery(['images'], fetchImages);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const skillsResponse = await fetch('/.netlify/functions/getSkills');
-        if (!skillsResponse.ok) throw new Error('Failed to fetch skills');
-        const skillsData = await skillsResponse.json();
-        setSkills(skillsData);
-
-        const projectsResponse = await fetch('/.netlify/functions/getProjects');
-        if (!projectsResponse.ok) throw new Error('Failed to fetch projects');
-        const projectsData = await projectsResponse.json();
-        setProjects(projectsData);
-
-        const imagesResponse = await fetch('/.netlify/functions/getImages');
-        if (!imagesResponse.ok) throw new Error('Failed to fetch images');
-        const imagesData = await imagesResponse.json();
-        setImages(imagesData);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  if (loading) {
+  if (loadingSkills || loadingProjects || loadingImages) {
     return (
       <div className="text-center" style={{ height: '100vh', alignContent: 'center' }}>
         <Appbar />
@@ -54,8 +44,8 @@ export default function Home() {
     );
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (errorSkills || errorProjects || errorImages) {
+    return <div>Error: {errorSkills?.message || errorProjects?.message || errorImages?.message}</div>;
   }
 
   return (
