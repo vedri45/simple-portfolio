@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Card, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row, Badge, Spinner } from 'react-bootstrap';
 
 class Projects extends Component {
     render() {
@@ -22,6 +22,11 @@ class Projects extends Component {
                                         <Card.Title>{item.name}</Card.Title>
                                         <Card.Text>
                                             {item.description}
+                                        </Card.Text>
+                                        <Card.Text>
+                                            <Badge bg="secondary" className="px-2 py-1">
+                                                [ {item.tech} ]
+                                            </Badge>
                                         </Card.Text>
                                         {item.githubUrl ? (
                                             <Button variant="primary" href={item.githubUrl} target="_blank" className="me-2">
